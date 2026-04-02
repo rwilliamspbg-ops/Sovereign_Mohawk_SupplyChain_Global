@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  contract-and-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+      - name: Setup Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
+        with:
+          python-version: "3.12"
+
+      - name: Validate contract fixtures
+        run: |
+          python3 scripts/validate_dashboard_contract.py
+
+      - name: Run unit test
+        run: |
+          python3 -m unittest -q tests/test_contract_validator.py
+
+      - name: Start mock API and smoke endpoints
+        run: |
+          python3 mock_api/server.py > /tmp/supplychain-mock.log 2>&1 &
+          MOCK_PID=$!
+          trap "kill ${MOCK_PID}" EXIT
+          for _ in $(seq 1 20); do
+            if curl -fsS "http://localhost:8088/healthz" >/dev/null 2>&1; then
+              break
+            fi
+            sleep 1
+          done
+          if ! curl -fsS "http://localhost:8088/healthz" >/dev/null 2>&1; then
+            echo "Mock API did not become ready in time"
+            cat /tmp/supplychain-mock.log || true
+            exit 1
+          fi
+          for endpoint in stats regions pipeline risk health; do
+            curl -fsS "http://localhost:8088/api/supplychain/${endpoint}" >/dev/null
+          done

@@ -1,0 +1,226 @@
+:root {
+  --bg: #f5f4ef;
+  --panel: rgba(255, 255, 255, 0.85);
+  --ink: #112418;
+  --muted: #3f5a49;
+  --accent: #2a7a46;
+  --accent-2: #d59a2f;
+  --stroke: rgba(17, 36, 24, 0.15);
+  --shadow: 0 12px 40px rgba(20, 34, 24, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "IBM Plex Sans", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 10% 10%, rgba(213, 154, 47, 0.12), transparent 35%),
+    radial-gradient(circle at 90% 15%, rgba(42, 122, 70, 0.2), transparent 38%),
+    linear-gradient(160deg, #eef3e6 0%, #f5f4ef 55%, #e9f1e7 100%);
+  min-height: 100vh;
+}
+
+.hero {
+  padding: 1.2rem clamp(1rem, 3vw, 2.2rem) 2.8rem;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.manifesto-link {
+  color: var(--ink);
+  border: 1px solid var(--stroke);
+  border-radius: 999px;
+  padding: 0.45rem 0.85rem;
+  text-decoration: none;
+  font-size: 0.92rem;
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.hero-content {
+  margin-top: 2rem;
+  max-width: 860px;
+  animation: riseIn 700ms ease-out;
+}
+
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+h1,
+h2 {
+  font-family: "Space Grotesk", sans-serif;
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(1.8rem, 4.4vw, 3.2rem);
+  line-height: 1.08;
+  margin-top: 0.35rem;
+}
+
+.hero-subtext {
+  max-width: 70ch;
+  color: var(--muted);
+  margin-top: 0.85rem;
+  line-height: 1.55;
+}
+
+.hero-badges {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.hero-badges span {
+  border: 1px solid var(--stroke);
+  border-radius: 999px;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.82rem;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+main {
+  width: min(1200px, 92vw);
+  margin: 0 auto 2.2rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.panel-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--stroke);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 1rem;
+  backdrop-filter: blur(8px);
+}
+
+.stat .value {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 2rem;
+  margin: 0.45rem 0 0;
+}
+
+.caption {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.panel-header {
+  margin-bottom: 0.8rem;
+}
+
+.panel-header p {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+}
+
+.map-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.region-btn {
+  border: 1px solid var(--stroke);
+  background: linear-gradient(140deg, rgba(42, 122, 70, 0.1), rgba(213, 154, 47, 0.14));
+  border-radius: 12px;
+  padding: 0.75rem;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 150ms ease, border-color 150ms ease;
+}
+
+.region-btn:hover,
+.region-btn:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(42, 122, 70, 0.55);
+  outline: none;
+}
+
+.region-details {
+  margin-top: 0.8rem;
+  border-top: 1px dashed var(--stroke);
+  padding-top: 0.8rem;
+  color: var(--muted);
+  min-height: 4.5rem;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.feed,
+.policy-list {
+  margin: 0.6rem 0 0;
+  padding-left: 1rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  padding: 1.1rem;
+  font-size: 0.88rem;
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 980px) {
+  .panel-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .two-col,
+  .map-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .panel-grid {
+    grid-template-columns: 1fr;
+  }
+
+  h1 {
+    font-size: clamp(1.6rem, 9vw, 2.2rem);
+  }
+}

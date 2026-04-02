@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Trans-Atlantic Corridor",
+    "zoneType": "Trade Corridor",
+    "riskSignal": "Port congestion escalation risk",
+    "modelConvergence": "95.2%",
+    "carbonSignal": "Maritime route intensity elevated"
+  },
+  {
+    "name": "South China Manufacturing Arc",
+    "zoneType": "Factory Cluster",
+    "riskSignal": "Supplier concentration stress",
+    "modelConvergence": "94.7%",
+    "carbonSignal": "Grid-carbon variability increasing"
+  }
+]

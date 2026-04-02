@@ -1,0 +1,7 @@
+{
+  "services": [
+    { "name": "orchestrator", "status": "up" },
+    { "name": "prometheus", "status": "up" },
+    { "name": "grafana", "status": "up" }
+  ]
+}

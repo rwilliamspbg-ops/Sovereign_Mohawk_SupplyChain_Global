@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  agri-mock-api:
+    image: python:3.12-slim
+    working_dir: /app
+    volumes:
+      - ./:/app:ro
+    command: ["python3", "mock_api/server.py"]
+    ports:
+      - "8088:8088"
+
+  agri-dashboard:
+    image: python:3.12-slim
+    working_dir: /app
+    volumes:
+      - ./:/app:ro
+    command: ["python3", "-m", "http.server", "8080"]
+    ports:
+      - "8080:8080"

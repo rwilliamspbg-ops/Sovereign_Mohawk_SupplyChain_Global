@@ -1,0 +1,24 @@
+{
+  "version": "0.1.0",
+  "policy_name": "supplychain-regional-gate",
+  "default_action": "allow",
+  "rules": [
+    {
+      "id": "eu-to-non-certified",
+      "if": {
+        "source_region": "EU",
+        "target_certified": false
+      },
+      "action": "deny",
+      "reason": "cross-region transfer requires certified destination"
+    },
+    {
+      "id": "require-attestation",
+      "if": {
+        "tpm_attested": false
+      },
+      "action": "deny",
+      "reason": "attestation required for participation"
+    }
+  ]
+}
