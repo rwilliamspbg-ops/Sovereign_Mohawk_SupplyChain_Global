@@ -13,5 +13,5 @@ All future changes must be merged through pull requests from feature branches.
 ## Enforcement
 
 - `main` branch protection requires status checks and review.
-- Admin bypass is disallowed for normal engineering changes.
+- Admin bypass is disallowed for normal engineering changes; GitHub branch protection for `main` must have **Include administrators** (`enforce_admins`) enabled.
 - Emergency bypass must include post-incident retrospective evidence.
