@@ -8,6 +8,25 @@ Sovereign Mohawk Supply Chain Global enables enterprise-sovereign and nation-sov
 
 Sovereign Mohawk Supply Chain Global: every shipment, factory, and port keeps full data sovereignty while training planetary-scale AI for resilient, transparent, and net-zero supply chains.
 
+## Ecosystem
+
+Core repositories:
+
+- [Sovereign-Mohawk-Proto](https://github.com/rwilliamspbg-ops/Sovereign-Mohawk-Proto)
+- [Sovereign_Map_Federated_Learning](https://github.com/rwilliamspbg-ops/Sovereign_Map_Federated_Learning)
+- [Sovereign_Mohawk_Oncology_Global](https://github.com/rwilliamspbg-ops/Sovereign_Mohawk_Oncology_Global)
+- [Sovereign_Mohawk_Agriculture_Global](https://github.com/rwilliamspbg-ops/Sovereign_Mohawk_Agriculture_Global)
+- [Sovereign_Mohawk_Climate_Global](https://github.com/rwilliamspbg-ops/Sovereign_Mohawk_Climate_Global)
+- [Sovereign_Mohawk_SupplyChain_Global](https://github.com/rwilliamspbg-ops/Sovereign_Mohawk_SupplyChain_Global)
+
+Canonical architecture and shared execution plans:
+
+- [docs/ECOSYSTEM_ARCHITECTURE.md](docs/ECOSYSTEM_ARCHITECTURE.md)
+- [docs/UNIFIED_PHASE2_MILESTONES.md](docs/UNIFIED_PHASE2_MILESTONES.md)
+- [docs/GOVERNANCE_PR_ONLY.md](docs/GOVERNANCE_PR_ONLY.md)
+- [docs/ACTION_PINNING_POLICY.md](docs/ACTION_PINNING_POLICY.md)
+- [docs/PRODUCTION_DATA_PLANE_PLAN.md](docs/PRODUCTION_DATA_PLANE_PLAN.md)
+
 ## Ecosystem Fit (April 2, 2026)
 
 - Proto: runtime, zk-SNARK verification, PQC, BFT trust controls.
