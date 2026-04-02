@@ -6,7 +6,6 @@
 
 ## Endpoint Contract Version
 
-- Contract baseline: v1.0
 - Endpoint namespace: /api/supplychain/*
 - Contract reference: docs/PHASE2_INTEGRATION.md
 
