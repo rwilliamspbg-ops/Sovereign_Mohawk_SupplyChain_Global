@@ -92,12 +92,61 @@
           <li>Cross-border transfer requires attested policy signatures.</li>
         </ul>
       </div>
-      <div>
+      <div class="operator-hud">
         <h2>Operator Actions</h2>
-        <ul class="policy-list">
-          <li>Review governance checklist before rerouting policy simulation prompts.</li>
-          <li>Run DPIA generation for new telemetry classes and trade routes.</li>
-          <li>Export round-level attestation and compliance evidence packs.</li>
+        <p class="operator-subtext">Execute governance and compliance operations from one command HUD.</p>
+
+        <div class="action-buttons">
+          <button id="governanceActionBtn" type="button" class="hud-btn">Review Governance Checklist</button>
+          <button id="dpiaActionBtn" type="button" class="hud-btn">Run DPIA Generation</button>
+          <button id="exportEvidenceBtn" type="button" class="hud-btn">Export Evidence Pack</button>
+        </div>
+
+        <div class="operator-panel" aria-live="polite">
+          <h3>Operator Suggestions</h3>
+          <p>Live recommendations from compliance, mode, and workflow progress.</p>
+          <ul id="operatorSuggestions" class="suggestion-list">
+            <li>No suggestions available.</li>
+          </ul>
+          <button id="refreshSuggestionsBtn" type="button" class="hud-btn hud-btn-inline">Refresh Suggestions</button>
+        </div>
+
+        <div id="governancePanel" class="operator-panel hidden" aria-live="polite">
+          <h3>Governance Checklist</h3>
+          <p>Complete all checks before rerouting policy simulation prompts.</p>
+          <label><input type="checkbox" class="governance-check" value="Prompt scope reviewed" /> Prompt scope reviewed</label>
+          <label><input type="checkbox" class="governance-check" value="Cross-border policy constraints confirmed" /> Cross-border policy constraints confirmed</label>
+          <label><input type="checkbox" class="governance-check" value="Attestation requirements validated" /> Attestation requirements validated</label>
+          <label><input type="checkbox" class="governance-check" value="Operator sign-off recorded" /> Operator sign-off recorded</label>
+          <button id="finalizeGovernanceBtn" type="button" class="hud-btn hud-btn-inline">Mark Checklist Reviewed</button>
+          <p id="governanceStatus" class="status-line">Status: Pending review</p>
+        </div>
+
+        <div id="dpiaPanel" class="operator-panel hidden" aria-live="polite">
+          <h3>DPIA Generator</h3>
+          <div class="field-grid">
+            <label>
+              Telemetry Class
+              <input id="telemetryClassInput" type="text" placeholder="e.g. customs_latency" />
+            </label>
+            <label>
+              Trade Route
+              <input id="tradeRouteInput" type="text" placeholder="e.g. EU -> North America" />
+            </label>
+          </div>
+          <button id="generateDpiaBtn" type="button" class="hud-btn hud-btn-inline">Generate DPIA</button>
+          <pre id="dpiaOutput" class="generated-output">No DPIA generated yet.</pre>
+        </div>
+
+        <div id="exportPanel" class="operator-panel hidden" aria-live="polite">
+          <h3>Round-Level Evidence Export</h3>
+          <p>Build attestation and compliance export pack from current round telemetry.</p>
+          <button id="downloadEvidenceBtn" type="button" class="hud-btn hud-btn-inline">Download JSON Pack</button>
+          <pre id="exportSummary" class="generated-output">No export generated yet.</pre>
+        </div>
+
+        <ul id="operatorLog" class="operator-log">
+          <li>Operator HUD initialized.</li>
         </ul>
       </div>
     </section>
