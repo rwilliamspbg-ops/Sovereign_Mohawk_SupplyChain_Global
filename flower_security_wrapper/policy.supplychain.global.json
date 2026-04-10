@@ -1,0 +1,23 @@
+{
+  "version": "1.0.0",
+  "policy_name": "supplychain-global-attestation-baseline",
+  "default_action": "allow",
+  "rules": [
+    {
+      "id": "require-attestation",
+      "if": {
+        "tpm_attested": false
+      },
+      "action": "deny",
+      "reason": "attestation required for participation"
+    },
+    {
+      "id": "block-sanctioned-jurisdiction",
+      "if": {
+        "jurisdiction": "sanctioned"
+      },
+      "action": "deny",
+      "reason": "sanctioned jurisdictions are blocked"
+    }
+  ]
+}

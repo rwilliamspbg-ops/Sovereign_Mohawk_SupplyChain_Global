@@ -12,5 +12,15 @@ This folder contains the supply-chain-adapted policy and validation layer for fe
 ## Next Adapter Work
 
 1. Import domain-agnostic wrapper logic from ecosystem template.
-2. Apply supply-chain policy packs and regional gate rules.
-3. Add integration tests for denied/allowed transfer scenarios.
+2. Use production starter packs:
+   - `policy.supplychain.eu.json`
+   - `policy.supplychain.global.json`
+3. Validate policy behavior with acceptance vectors in `test_vectors.supplychain.json`.
+
+## Validation
+
+Run policy schema and deny/allow branch validation:
+
+```bash
+python3 scripts/validate_policy_pack.py
+```

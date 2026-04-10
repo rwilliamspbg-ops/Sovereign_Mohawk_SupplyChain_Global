@@ -1,0 +1,48 @@
+{
+  "version": "1.0.0",
+  "metrics": [
+    {
+      "dashboard_field": "nodesOnline",
+      "aliases": ["nodesOnline", "nodes_online"],
+      "prometheus_metric": "supplychain_fl_nodes_online",
+      "type": "gauge",
+      "unit": "count"
+    },
+    {
+      "dashboard_field": "flRound",
+      "aliases": ["flRound", "fl_round"],
+      "prometheus_metric": "supplychain_fl_round_current",
+      "type": "gauge",
+      "unit": "round"
+    },
+    {
+      "dashboard_field": "complianceScore",
+      "aliases": ["complianceScore", "compliance_score"],
+      "prometheus_metric": "supplychain_compliance_score",
+      "type": "gauge",
+      "unit": "percent"
+    },
+    {
+      "dashboard_field": "tokenRate",
+      "aliases": ["tokenRate", "token_rate"],
+      "prometheus_metric": "supplychain_token_rate_per_minute",
+      "type": "gauge",
+      "unit": "mhc_per_min"
+    },
+    {
+      "dashboard_field": "serviceLatencyMs",
+      "aliases": ["latencyMs", "latency_ms"],
+      "prometheus_metric": "supplychain_service_latency_ms",
+      "type": "histogram",
+      "unit": "ms"
+    },
+    {
+      "dashboard_field": "serviceThroughputRps",
+      "aliases": ["throughputRps", "throughput_rps"],
+      "prometheus_metric": "supplychain_service_requests_per_second",
+      "type": "gauge",
+      "unit": "rps"
+    }
+  ],
+  "required_services": ["orchestrator", "prometheus", "grafana"]
+}

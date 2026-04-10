@@ -11,7 +11,7 @@ ROUTES = {
     "/api/supplychain/regions": "regions.json",
     "/api/supplychain/pipeline": "pipeline.json",
     "/api/supplychain/risk": "risk.json",
-    "/api/supplychain/health": "health.json",
+    "/api/supplychain/health": "health.metrics.json",
 }
 
 

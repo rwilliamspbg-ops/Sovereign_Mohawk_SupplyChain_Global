@@ -1,0 +1,33 @@
+{
+  "version": "1.0.0",
+  "policy_name": "supplychain-eu-crossborder-gate",
+  "default_action": "allow",
+  "rules": [
+    {
+      "id": "require-attestation",
+      "if": {
+        "tpm_attested": false
+      },
+      "action": "deny",
+      "reason": "attestation required for participation"
+    },
+    {
+      "id": "eu-to-non-certified",
+      "if": {
+        "source_region": "EU",
+        "target_certified": false
+      },
+      "action": "deny",
+      "reason": "cross-region transfer requires certified destination"
+    },
+    {
+      "id": "eu-high-risk-export",
+      "if": {
+        "source_region": "EU",
+        "risk_tier": "high"
+      },
+      "action": "deny",
+      "reason": "high-risk export requires additional controls"
+    }
+  ]
+}

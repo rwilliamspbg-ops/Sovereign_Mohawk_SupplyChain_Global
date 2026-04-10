@@ -125,8 +125,21 @@ See `docs/PHASE2_INTEGRATION.md` for payload contracts.
 
 ```bash
 python3 scripts/validate_dashboard_contract.py
+python3 scripts/validate_policy_pack.py
+python3 scripts/validate_observability_mapping.py
 python3 -m unittest -q tests/test_contract_validator.py
+python3 -m unittest -q tests/test_upgrade_validators.py
 ```
+
+## Evidence Artifact Bundle
+
+Capture a release-style artifact bundle with policy, contract, and observability checks:
+
+```bash
+bash scripts/capture_beta_artifacts.sh
+```
+
+Output is written under `captured_artifacts/release_evidence_<timestamp>/` with index and manifest files.
 
 ## Status
 

@@ -21,10 +21,12 @@ jobs:
       - name: Validate contract fixtures
         run: |
           python3 scripts/validate_dashboard_contract.py
+          python3 scripts/validate_policy_pack.py
+          python3 scripts/validate_observability_mapping.py
 
       - name: Run unit test
         run: |
-          python3 -m unittest -q tests/test_contract_validator.py
+          python3 -m unittest -q tests/test_contract_validator.py tests/test_upgrade_validators.py
 
       - name: Start mock API and smoke endpoints
         run: |

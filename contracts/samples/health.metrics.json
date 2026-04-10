@@ -1,0 +1,22 @@
+{
+  "services": [
+    {
+      "name": "orchestrator",
+      "status": "up",
+      "latency_ms": 19,
+      "throughput_rps": 220
+    },
+    {
+      "name": "prometheus",
+      "status": "up",
+      "latency_ms": 12,
+      "throughput_rps": 530
+    },
+    {
+      "name": "grafana",
+      "status": "up",
+      "latency_ms": 15,
+      "throughput_rps": 180
+    }
+  ]
+}

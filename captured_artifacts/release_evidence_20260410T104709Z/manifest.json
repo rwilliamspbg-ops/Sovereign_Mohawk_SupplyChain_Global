@@ -1,0 +1,13 @@
+{
+  "generated": "20260410T104709Z",
+  "bundle": "release_evidence_20260410T104709Z",
+  "files": [
+    { "path": "endpoint-contracts/phase2_integration_reference.txt", "sha256": "8e86d4902953f5d6ec075882ffaa7ebaa1f8b6e1bf1e0e29e85c9b38488812da" },
+    { "path": "index.md", "sha256": "a1a1ad9dbe47e451ebc0803531eba592b5a47eb90e5d98c79e2fb19f67f72f0a" },
+    { "path": "observability/observability_mapping_validation.txt", "sha256": "52c48fdb288fa8160b2eaa7ba76f2a546f70d37561e7474d25f7e341e421734b" },
+    { "path": "observability/observability_metric_mapping.json", "sha256": "b8cb1fd85acaba74d40031acf50bd69398ad795f156c948900ee293e6af8198c" },
+    { "path": "policy-evaluation/policy_pack_validation.txt", "sha256": "5ae7d3284905c2c82458ad6d9254ea201308d65f1b048473d79f2ca56e4c489f" },
+    { "path": "policy-evaluation/test_vectors.supplychain.json", "sha256": "91d3af90c91952f04144203f0331ad2b0c248b171abb097061e7afbf9634d248" },
+    { "path": "readiness/dashboard_contract_validation.txt", "sha256": "751f2d340370738a9f356d321d29a671115b9bd73c14b7a5b8653ddd8b65d9de" }
+  ]
+}

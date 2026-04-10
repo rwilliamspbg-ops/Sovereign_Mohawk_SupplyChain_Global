@@ -1,0 +1,2 @@
+dashboard contract validation passed
+PASS

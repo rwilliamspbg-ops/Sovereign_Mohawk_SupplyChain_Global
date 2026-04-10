@@ -1,0 +1,55 @@
+{
+  "vectors": [
+    {
+      "id": "eu-allow-certified-attested",
+      "policy": "policy.supplychain.eu.json",
+      "input": {
+        "source_region": "EU",
+        "target_certified": true,
+        "tpm_attested": true,
+        "risk_tier": "medium"
+      },
+      "expected_action": "allow"
+    },
+    {
+      "id": "eu-deny-non-certified",
+      "policy": "policy.supplychain.eu.json",
+      "input": {
+        "source_region": "EU",
+        "target_certified": false,
+        "tpm_attested": true,
+        "risk_tier": "low"
+      },
+      "expected_action": "deny"
+    },
+    {
+      "id": "eu-deny-missing-attestation",
+      "policy": "policy.supplychain.eu.json",
+      "input": {
+        "source_region": "EU",
+        "target_certified": true,
+        "tpm_attested": false,
+        "risk_tier": "low"
+      },
+      "expected_action": "deny"
+    },
+    {
+      "id": "global-deny-sanctioned",
+      "policy": "policy.supplychain.global.json",
+      "input": {
+        "jurisdiction": "sanctioned",
+        "tpm_attested": true
+      },
+      "expected_action": "deny"
+    },
+    {
+      "id": "global-allow-standard",
+      "policy": "policy.supplychain.global.json",
+      "input": {
+        "jurisdiction": "standard",
+        "tpm_attested": true
+      },
+      "expected_action": "allow"
+    }
+  ]
+}

@@ -144,13 +144,16 @@ function getConfig() {
 
 async function fetchJson(url, timeoutMs) {
   const controller = new AbortController();
+  const start = performance.now();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
     const response = await fetch(url, { signal: controller.signal });
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
     }
-    return await response.json();
+    const payload = await response.json();
+    const latencyMs = Math.round(performance.now() - start);
+    return { payload, status: response.status, latencyMs };
   } finally {
     clearTimeout(timer);
   }
@@ -158,11 +161,11 @@ async function fetchJson(url, timeoutMs) {
 
 async function loadLiveData(config) {
   const endpoints = [
-    { key: "stats", url: config.statsUrl },
-    { key: "regions", url: config.regionsUrl },
-    { key: "pipeline", url: config.pipelineUrl },
-    { key: "risk", url: config.riskUrl },
-    { key: "health", url: config.healthUrl },
+    { key: "stats", url: config.statsUrl, required: true },
+    { key: "regions", url: config.regionsUrl, required: true },
+    { key: "pipeline", url: config.pipelineUrl, required: true },
+    { key: "risk", url: config.riskUrl, required: true },
+    { key: "health", url: config.healthUrl, required: false },
   ];
 
   const results = await Promise.allSettled(
@@ -177,47 +180,67 @@ async function loadLiveData(config) {
   };
   const endpointStatus = [];
   let liveSuccessCount = 0;
+  let requiredSuccessCount = 0;
 
   results.forEach((result, index) => {
     const endpoint = endpoints[index];
     if (result.status === "fulfilled") {
+      const response = result.value;
+      const payload = response.payload;
       liveSuccessCount += 1;
-      endpointStatus.push(`${endpoint.key}: live (${endpoint.url})`);
+      if (endpoint.required) {
+        requiredSuccessCount += 1;
+      }
+      endpointStatus.push(
+        `${endpoint.key}: live (${endpoint.url}) status ${response.status} latency ${response.latencyMs}ms`
+      );
 
       if (endpoint.key === "stats") {
-        const payload = result.value || {};
+        const statsPayload = payload || {};
         data.stats = {
-          nodesOnline: payload.nodesOnline || payload.nodes_online || data.stats.nodesOnline,
-          flRound: payload.flRound || payload.fl_round || data.stats.flRound,
+          nodesOnline:
+            statsPayload.nodesOnline || statsPayload.nodes_online || data.stats.nodesOnline,
+          flRound: statsPayload.flRound || statsPayload.fl_round || data.stats.flRound,
           complianceScore:
-            payload.complianceScore || payload.compliance_score || data.stats.complianceScore,
-          tokenRate: payload.tokenRate || payload.token_rate || data.stats.tokenRate,
+            statsPayload.complianceScore ||
+            statsPayload.compliance_score ||
+            data.stats.complianceScore,
+          tokenRate: statsPayload.tokenRate || statsPayload.token_rate || data.stats.tokenRate,
         };
       }
 
-      if (endpoint.key === "regions" && Array.isArray(result.value)) {
-        data.regions = result.value;
+      if (endpoint.key === "regions" && Array.isArray(payload)) {
+        data.regions = payload;
       }
 
       if (endpoint.key === "pipeline") {
-        if (Array.isArray(result.value)) {
-          data.pipeline = result.value;
-        } else if (Array.isArray(result.value.events)) {
-          data.pipeline = result.value.events;
+        if (Array.isArray(payload)) {
+          data.pipeline = payload;
+        } else if (payload && Array.isArray(payload.events)) {
+          data.pipeline = payload.events;
         }
       }
 
       if (endpoint.key === "risk") {
-        if (Array.isArray(result.value)) {
-          data.risk = result.value;
-        } else if (Array.isArray(result.value.events)) {
-          data.risk = result.value.events;
+        if (Array.isArray(payload)) {
+          data.risk = payload;
+        } else if (payload && Array.isArray(payload.events)) {
+          data.risk = payload.events;
         }
       }
 
-      if (endpoint.key === "health" && Array.isArray(result.value.services)) {
-        result.value.services.forEach((service) => {
-          endpointStatus.push(`service ${service.name}: ${service.status}`);
+      if (endpoint.key === "health" && payload && Array.isArray(payload.services)) {
+        payload.services.forEach((service) => {
+          const latency = service.latencyMs || service.latency_ms;
+          const throughput = service.throughputRps || service.throughput_rps;
+          const parts = [`service ${service.name}: ${service.status}`];
+          if (latency !== undefined) {
+            parts.push(`latency ${latency}ms`);
+          }
+          if (throughput !== undefined) {
+            parts.push(`throughput ${throughput} rps`);
+          }
+          endpointStatus.push(parts.join(" | "));
         });
       }
       return;
@@ -228,7 +251,17 @@ async function loadLiveData(config) {
     );
   });
 
-  const mode = liveSuccessCount > 0 ? "Hybrid (Live + Simulation)" : "Supply Chain Simulation";
+  endpointStatus.unshift(
+    `summary: ${liveSuccessCount}/${endpoints.length} endpoints live | required ${requiredSuccessCount}/4`
+  );
+
+  let mode = "Supply Chain Simulation";
+  if (requiredSuccessCount === 4) {
+    mode = "Live Production Feed";
+  } else if (liveSuccessCount > 0) {
+    mode = "Hybrid (Live + Simulation)";
+  }
+
   return { data, endpointStatus, mode };
 }
 
